@@ -30,7 +30,7 @@
 		-bu mesaj fatura servisinden ilk fırsatta alınmalı ve üretilmeli.
 		-bu sayede işlemler arasında bir bekleme süresi olmayacaktır.
 		
-#-Senkron ve Asenkron İletişim Modelleri.
+# -Senkron ve Asenkron İletişim Modelleri.
     -Senkron
 	      Sistemler birbirleriyle haberleşirken sonuç bekliyorlar ise bu senkron bir iletişimdir.
 	 -Asenkron
