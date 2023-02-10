@@ -159,9 +159,9 @@ tek bir mesajın işlenmesini reddetebiliyoruz.
 	-böyle bir durumda mesajların kalıcı olabilmesi için ekstra bir çalışma yapılması gerekmektedir.
 -bu çalışma kuyruk ve mesaj açısından kalıcı olarak işaretleme yapılması gerekmektedir.
 Publisherda yapılması gereken işlemler: 
-![image](https://user-images.githubusercontent.com/77778888/218112498-4004f5cd-b961-4ac4-8c68-9b618b16291b.png)
-![image](https://user-images.githubusercontent.com/77778888/218112515-bf7dbcec-9dd4-48ce-8ee7-b1ecaee0cb7c.png)
-![image](https://user-images.githubusercontent.com/77778888/218112531-81a6a34e-bb64-4f0f-99bb-f69a7f098f01.png)
+![image](https://user-images.githubusercontent.com/77778888/218112931-9361745e-4455-4cae-b67e-6108f16b569a.png)
+![image](https://user-images.githubusercontent.com/77778888/218112946-0a6bac85-d180-43e3-ae16-ffb646d84d49.png)
+![image](https://user-images.githubusercontent.com/77778888/218112955-e955e444-d09d-496c-85b6-a266fd3ec0d5.png)
 
  
  
