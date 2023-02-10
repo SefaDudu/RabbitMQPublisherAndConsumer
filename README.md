@@ -114,7 +114,8 @@
  kuyruktan silinebilmesi için onay/bildiri sistemi vs. tüm bu detaylar bu başlık altında işlenmektedir.
  # ROUND-ROBIN Dispatching
 		-Rabibtmq default olarak tüm consumerlara sırasıyla mesaj gönderir.
-		![image](https://user-images.githubusercontent.com/77778888/218112098-d0a59e34-231d-4be7-ae3a-d1b1c7b8ed92.png)
+
+![image](https://user-images.githubusercontent.com/77778888/218112098-d0a59e34-231d-4be7-ae3a-d1b1c7b8ed92.png)
 
 		
   # Message Acknowledgement
@@ -132,8 +133,7 @@
 		-bu özellik sayesinde bir mesajın kaybolmadığından emin olabiliriz.
 		-tüketici açısından mesajın alındığını ve işlendiğini artık kuyruktan silinebilir olduğunu anlayarak süreç daha güvenli hale gelir.
 		-her işleme göre geri dönüş tipi değişmektedir. 
-		-rabbitmqya tüketiciden gelen onay süresi max 30 dakikadır bu süreç uzadığı taktirde işlem tekrar kuyruğa alınır. bu süreci arttırmak mümkündür.
- ![image](https://user-images.githubusercontent.com/77778888/218112155-47dfc2af-4a8f-4582-9c6e-43f01361a158.png)
+		-rabbitmqya tüketiciden gelen onay süresi max 30 dakikadır bu süreç uzadığı taktirde işlem tekrar kuyruğa alınır. bu süreci arttırmak mümkündür. ![image](https://user-images.githubusercontent.com/77778888/218112155-47dfc2af-4a8f-4582-9c6e-43f01361a158.png)
 <h3>autoAck:</h3>
 Consume tarafında false verilerek Message Acknowledgement onaylanma süreci aktifleştirilmesi için gereklidir. Rabbitmq varsayılan işlemi bu şekilde değiştirilmiş olur.
 <h3>BasicAck:</h3>
@@ -148,7 +148,7 @@ consumerda istemsiz durumların dışında kendi kontrollerimiz neticesinde mesa
 <h3>BasicCancel:</h3>
 tüm mesajların işlenmesini reddetme consumer tag ile birlikte
  
-![image](https://user-images.githubusercontent.com/77778888/218112731-8b828d53-72ba-4840-a19d-dc70e3246bbc.png)
+ ![image](https://user-images.githubusercontent.com/77778888/218112731-8b828d53-72ba-4840-a19d-dc70e3246bbc.png)
 
 <h3>BasicReject : </h3>
 tek bir mesajın işlenmesini reddetebiliyoruz.<br>
