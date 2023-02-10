@@ -149,7 +149,7 @@ tüm mesajların işlenmesini reddetme consumer tag ile birlikte
 ![image](https://user-images.githubusercontent.com/77778888/218112731-8b828d53-72ba-4840-a19d-dc70e3246bbc.png)
 
 <h3>BasicReject : </h3>
-tek bir mesajın işlenmesini reddetebiliyoruz.
+tek bir mesajın işlenmesini reddetebiliyoruz.<br>
  ![image](https://user-images.githubusercontent.com/77778888/218112781-52923f79-71b4-494d-9563-457a3202ed44.png)
 
 
@@ -158,10 +158,10 @@ tek bir mesajın işlenmesini reddetebiliyoruz.
 	-bir kapanmada tüm kuyruklar ve mesajlar silinecektir.
 	-böyle bir durumda mesajların kalıcı olabilmesi için ekstra bir çalışma yapılması gerekmektedir.
 -bu çalışma kuyruk ve mesaj açısından kalıcı olarak işaretleme yapılması gerekmektedir.
-Publisherda yapılması gereken işlemler: 
-![image](https://user-images.githubusercontent.com/77778888/218112931-9361745e-4455-4cae-b67e-6108f16b569a.png)
-![image](https://user-images.githubusercontent.com/77778888/218112946-0a6bac85-d180-43e3-ae16-ffb646d84d49.png)
-![image](https://user-images.githubusercontent.com/77778888/218112955-e955e444-d09d-496c-85b6-a266fd3ec0d5.png)
+Publisherda yapılması gereken işlemler: <br>
+![image](https://user-images.githubusercontent.com/77778888/218112498-4004f5cd-b961-4ac4-8c68-9b618b16291b.png) <br>
+![image](https://user-images.githubusercontent.com/77778888/218112515-bf7dbcec-9dd4-48ce-8ee7-b1ecaee0cb7c.png) <br>
+![image](https://user-images.githubusercontent.com/77778888/218112531-81a6a34e-bb64-4f0f-99bb-f69a7f098f01.png)<br>
 
  
  
@@ -172,7 +172,7 @@ Bu işlem hem publisher hem de consumerda uygulanmalıdır.
 Tüm consumerlara eşit şekilde mesaj iletilmesi için bir özelliktir. Bu performansı düzenli bir hale getirir. Hepsi eşit işleme yapacağı anlamına gelir.
 Bunu mesaj işleme konfigürasyonujj ile yaparız.
 BasicQos methodu ile mesajların işleme hızını ve teslimat sırasını belirleyebiliriz.
-Böylece fair dispatch özelliği çalışır.
+Böylece fair dispatch özelliği çalışır.<br>
 ![image](https://user-images.githubusercontent.com/77778888/218112576-9817b1d6-457d-4f2f-8796-e26f7e0ff1a7.png)
 
 
