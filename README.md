@@ -102,5 +102,77 @@
 	  	-yapılacak çalışmanın maliyetine göre 4 çeşit exchange mevcuttur.
 	  BINDING : exchange ile queue arasındaki ilişkiye binding denir.
 	  	-exchange birden fazla queueya bind olabiliyorsa hangi kuyruğa göndereceğini nasıl anlıyor. (exchange türüne göre değişir.)
-	
-	
+# GELİŞMİŞ KUYRUK MİMARİSİ
+ -Rabbitmq teknolojisinin ana fikri yoğun kaynak gerektiren işleri hemen yapmaya koyularak tamamlanmasını
+ beklemeksizin bu işleri ölçeklendirilebilir bir vaziyette daha sonra yapılacak şekilde planlamaktır.
+ -Bu planlama gerçekleştirilirken kuyruklar kullanılmakta  ve mesajlar kuyruklara atılarak tüketiciler
+ tarafından bu mesajlar elde edilerek asenkron bir şekilde işlenmesi sağlanmaktadır.
+ -Tüm bu süreçte kuyrukların bakımı , mesajların kalıcılığı vs konfigüre edilmesi gerekmekte.
+ Ayrıca birden fazla tüketicinin söz konusu olduğu durumlarda nasıl bir davranış olacağı önem arz etmektedir.
+ Gelişmiş kuyruk mimarisi tam olarak bu noktada önem arz etmektedir. kuyrukların ve mesajların kalıcılığı , 
+ mesajların birden fazla tüketiciye karşı dağıtım stratejisi yahut tüketici tarafından işlenmiş bir mesajın
+ kuyruktan silinebilmesi için onay/bildiri sistemi vs. tüm bu detaylar bu başlık altında işlenmektedir.
+ # ROUND-ROBIN Dispatching
+		-Rabibtmq default olarak tüm consumerlara sırasıyla mesaj gönderir.
+		![image](https://user-images.githubusercontent.com/77778888/218112098-d0a59e34-231d-4be7-ae3a-d1b1c7b8ed92.png)
+
+		
+  # Message Acknowledgement
+		-Mesaj Onaylama
+		-rabbit mq tüketiciye gönderdiği herhangi bir mesajı ister başarılı olsun ister başarısız olsun kuyruktan silinmesi üzerine işaretler.
+		-örneğin bir sipariş oluşturulurken hata olmasına rağmen silinmesi durumunda bir sıkıntı doğabilir. buda olası bir veri kaybına neden olur. bu durumu 		      engellemeye yarar.
+		-tüketicilerin kuyruktan aldıkları mesajları işlemesi süresinde herhangi bir kesinti yahut problem tam olarak işlenemeyeceği için esasında görev      		       tamamlanmamış olacaktır.
+		-bu tarz durumlara istinaden mesaj başarıyla işlendiyse eğer kuyruktan silinmesi için tüketiciden RABBİTMQ'nun uyarılması gerekmektedir.
+	         Message Acknowledgement Problemleri
+	 	-Bir mesaj işlenmeden consumer problem yaşarsa bu mesajın sağlıklı bir şekilde işlenebilmesi için başka bir consumer tarafından tüketilebilir 			 olmalıdır.
+		-Aksi taktirde mesaj kuyruktan consumer tarafından alındığı an silinirse bu durumda veri kaybı ihtimali söz konusu olacaktır. İşte bu tarz durumlar 		     için message Acknowledgement özelliği şarttır diyebiliriz.
+		-eğer ki bu özelliği kullanıyorsanız kesinlikte mesaj işleme başarıyla sonlandığı taktirde RABBİTMQ'ya mesajın silinmesi için haber göndermeyi 	     		     unutmayın. Aksi taktirde mesaj tekrar yayınlanacak ve başka bir tüketici tarafından tekrar işlenecektir.
+		-Tabi ayriyeten mesajlar onaylanarak silinmediği taktirde kuyrukta kalınmasına neden olacak ve bu durum kuyrukların büyümesine ve yavaşlamasıyla   		    sonuçlanıp performans düşüklüğüne neden olacaktır.
+#ÖZET
+		-bu özellik sayesinde bir mesajın kaybolmadığından emin olabiliriz.
+		-tüketici açısından mesajın alındığını ve işlendiğini artık kuyruktan silinebilir olduğunu anlayarak süreç daha güvenli hale gelir.
+		-her işleme göre geri dönüş tipi değişmektedir. 
+		-rabbitmqya tüketiciden gelen onay süresi max 30 dakikadır bu süreç uzadığı taktirde işlem tekrar kuyruğa alınır. bu süreci arttırmak mümkündür.
+ ![image](https://user-images.githubusercontent.com/77778888/218112155-47dfc2af-4a8f-4582-9c6e-43f01361a158.png)
+<h3>autoAck:</h3>
+Consume tarafında false verilerek Message Acknowledgement onaylanma süreci aktifleştirilmesi için gereklidir. Rabbitmq varsayılan işlemi bu şekilde değiştirilmiş olur.
+<h3>BasicAck:</h3>
+Consumer mesajı başarıyla işlediğine dair uyarıyı bu method ile gerçekleştirir.
+<h3>Multiple parametresi :</h3> 
+birden fazla mesaja dair onay bildirisi gönderir. Eğer true değeri verilirse deliverytag değerine sahip olan bu mesajla birlikte bundan önceki mesajlarında işlendiğini onaylar. Aksi taktirde false verilirse sadece bu mesaj için onay bildirisinde bulunacaktır.
+<h3>BasicNac :</h3>
+consumerda istemsiz durumların dışında kendi kontrollerimiz neticesinde mesajları işlememek isteyebilir veyahut ilgili mesjın işlnemsi olumsuz sonuçlanması durumunda kullanılır.
+![image](https://user-images.githubusercontent.com/77778888/218112403-548146f2-cdce-49c0-9e34-35c8ae43f4f3.png)
+<h3>BasicCancel:</h3>
+tüm mesajların işlenmesini reddetme consumer tag ile birlikte
+ 
+![image](https://user-images.githubusercontent.com/77778888/218112731-8b828d53-72ba-4840-a19d-dc70e3246bbc.png)
+
+<h3>BasicReject : </h3>
+tek bir mesajın işlenmesini reddetebiliyoruz.
+ ![image](https://user-images.githubusercontent.com/77778888/218112781-52923f79-71b4-494d-9563-457a3202ed44.png)
+
+
+<h3>Message Durability </h3>
+	-rabbit mq sunucu bir sorunlar karşılaştığında ne olacağına dair işlemler.
+	-bir kapanmada tüm kuyruklar ve mesajlar silinecektir.
+	-böyle bir durumda mesajların kalıcı olabilmesi için ekstra bir çalışma yapılması gerekmektedir.
+-bu çalışma kuyruk ve mesaj açısından kalıcı olarak işaretleme yapılması gerekmektedir.
+Publisherda yapılması gereken işlemler: 
+![image](https://user-images.githubusercontent.com/77778888/218112498-4004f5cd-b961-4ac4-8c68-9b618b16291b.png)
+![image](https://user-images.githubusercontent.com/77778888/218112515-bf7dbcec-9dd4-48ce-8ee7-b1ecaee0cb7c.png)
+![image](https://user-images.githubusercontent.com/77778888/218112531-81a6a34e-bb64-4f0f-99bb-f69a7f098f01.png)
+
+ 
+ 
+Bu işlem 100% kalıcılık sağlamaz.
+Bu işlem hem publisher hem de consumerda uygulanmalıdır.
+
+<h3>Fair Dispatch:</h3>
+Tüm consumerlara eşit şekilde mesaj iletilmesi için bir özelliktir. Bu performansı düzenli bir hale getirir. Hepsi eşit işleme yapacağı anlamına gelir.
+Bunu mesaj işleme konfigürasyonujj ile yaparız.
+BasicQos methodu ile mesajların işleme hızını ve teslimat sırasını belirleyebiliriz.
+Böylece fair dispatch özelliği çalışır.
+![image](https://user-images.githubusercontent.com/77778888/218112576-9817b1d6-457d-4f2f-8796-e26f7e0ff1a7.png)
+
+
