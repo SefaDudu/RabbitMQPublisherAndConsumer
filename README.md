@@ -142,7 +142,9 @@ Consumer mesajı başarıyla işlediğine dair uyarıyı bu method ile gerçekle
 birden fazla mesaja dair onay bildirisi gönderir. Eğer true değeri verilirse deliverytag değerine sahip olan bu mesajla birlikte bundan önceki mesajlarında işlendiğini onaylar. Aksi taktirde false verilirse sadece bu mesaj için onay bildirisinde bulunacaktır.
 <h3>BasicNac :</h3>
 consumerda istemsiz durumların dışında kendi kontrollerimiz neticesinde mesajları işlememek isteyebilir veyahut ilgili mesjın işlnemsi olumsuz sonuçlanması durumunda kullanılır.
-![image](https://user-images.githubusercontent.com/77778888/218112403-548146f2-cdce-49c0-9e34-35c8ae43f4f3.png)
+<br> 
+![image](https://user-images.githubusercontent.com/77778888/218113558-d1edfbda-96f1-45db-8e0f-2fa632bb1d99.png)
+
 <h3>BasicCancel:</h3>
 tüm mesajların işlenmesini reddetme consumer tag ile birlikte
  
